@@ -1,0 +1,106 @@
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Multiply window = new Multiply(350,350);
+		//window.makeWindow();
+		// new ColorGUI();
+		
+		
+		int numOfAi = 64;
+		int numOfMutants = 16;
+		
+		TackMove tm;
+		
+		TickTackTornoment ttt;
+		
+		ttt.playGame();
+	
+		ArrayList<TackMove> aiArr = new ArrayList<TackMove>();
+		ArrayList<TackMove> winners = new ArrayList<TackMove>();
+		ArrayList<TackMove> mutants = new ArrayList<TackMove>();
+		//Makes the initial 64 ai moves
+		for(int i = 0; i < numOfAi; i++)
+		{
+			tm = new TackMove();
+			aiArr.add(tm);
+		}
+		
+		for(int i = 0; i < numOfAi; i+=2)
+		{
+			ttt = new TickTackTornoment(aiArr.get(i), aiArr.get(i+1));
+			winners.add(ttt.playGame());
+		}
+		
+		//Mutates the winners
+		for(int j = 0; j < winners.size(); j++)
+		{
+			mutants.add(winners.get(j));
+			for(int i = 0; i < numOfMutants; i++)
+			{
+				TackMove mut = new TackMove();
+				mut.setWeights(winners.get(j).getMutant(10));
+				mutants.add(mut);
+			}
+		}
+		
+		
+		//Reset aiArr array
+		aiArr = new ArrayList<TackMove>();
+		
+		for(int i = 0; i < winners.size(); i++)
+		{
+			 aiArr.add(winners.get(i));
+		}
+		
+		
+		
+		pa(tm.getWeights(),"Origional");
+		for(int j = 0; j < 50; j++)
+		{
+			//ArrayList<int[]> mutants = new ArrayList<int[]>();
+			for(int i = 0; i < 10; i++)
+			{
+				//mutants.add(tm.getMutant(5));
+			}
+			
+			//tm.setWeights(mutants.get(getMaxMutant(mutants)));
+		}
+		pa(tm.getWeights(),"final");
+	}
+
+	public static void pa(int[] arr, String str)
+	{
+		System.out.print(str + ": ");
+		for(int i = 0; i < arr.length; i++)
+		{
+			System.out.print(arr[i] + ",");
+		}
+		System.out.print("\n");
+	}
+	
+	public static int getMaxMutant(ArrayList<int[]> list)
+	{
+		int maxIndex = 0;
+		int maxVal = 0;
+		int currVal = 0;
+		
+		
+		for(int i = 0; i < list.size(); i++)
+		{
+			currVal = list.get(i)[6] + list.get(i)[1];
+			//System.out.println("currVal[" + i + "] = " + currVal);
+			if(currVal > maxVal)
+			{
+				maxIndex = i;
+				maxVal = currVal;
+			}
+			//System.out.println("maxVal[" + i + "] = " + maxVal);
+			//System.out.println("maxIndex[" + i + "] = " + maxIndex);
+		}
+		
+		return maxIndex;
+	}
+}

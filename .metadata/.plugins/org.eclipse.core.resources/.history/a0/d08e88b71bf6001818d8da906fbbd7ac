@@ -1,0 +1,14 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Multiply window = new Multiply(350,350);
+		//window.makeWindow();
+		// new ColorGUI();
+		new TickTackToe();
+		
+
+	}
+
+}

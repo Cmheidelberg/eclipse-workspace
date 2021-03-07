@@ -1,0 +1,23 @@
+import java.util.*;
+
+public class TackMove {
+
+	Random r = new Random();
+	int[] weights = new int[9];
+	
+	
+	public TackMove()
+	{
+		int pos;
+		for(int i = 0; i < 1000; i++)
+		{
+			pos = r.nextInt(9);
+			weights[pos] += 1;
+		}
+	}
+	
+	public int[] getWeights()
+	{
+		return weights;
+	}
+}

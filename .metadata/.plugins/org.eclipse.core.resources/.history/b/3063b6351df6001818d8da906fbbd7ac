@@ -1,0 +1,24 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Multiply window = new Multiply(350,350);
+		//window.makeWindow();
+		// new ColorGUI();
+		//new TickTackToe();
+		
+		TackMove tm = new TackMove();
+		
+		int[] weights = tm.getWeights();
+		
+		System.out.print("Weights: ");
+		for(int i = 0; i < weights.length; i++)
+		{
+			System.out.print(weights[i] + ",");
+		}
+		System.out.print("\n");
+
+	}
+
+}

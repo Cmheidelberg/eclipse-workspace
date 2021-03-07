@@ -1,0 +1,33 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Multiply window = new Multiply(350,350);
+		//window.makeWindow();
+		// new ColorGUI();
+		//new TickTackToe();
+		
+		TackMove tm = new TackMove();
+		
+		int[] weights = tm.getWeights();
+		
+		pa(weights,"Origional");
+
+		for(int i = 0; i < 10; i++)
+		{
+			pa(tm.getMutant(5),"Mutant[" + i + "]");
+		}
+		pa(weights,"Origional");
+	}
+
+	public static void pa(int[] arr, String str)
+	{
+		System.out.print(str + ": ");
+		for(int i = 0; i < arr.length; i++)
+		{
+			System.out.print(arr[i] + ",");
+		}
+		System.out.print("\n");
+	}
+}

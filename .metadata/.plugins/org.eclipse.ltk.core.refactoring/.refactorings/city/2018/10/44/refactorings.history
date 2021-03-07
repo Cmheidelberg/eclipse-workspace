@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;city.Populator.java&apos; to &apos;District.java&apos;&#x0D;&#x0A;- Original project: &apos;city&apos;&#x0D;&#x0A;- Original element: &apos;city.Populator.java&apos;&#x0D;&#x0A;- Renamed element: &apos;city.District.java&apos;" description="Rename compilation unit &apos;Populator.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;city{Populator.java" name="District.java" references="false" stamp="1540909473082" version="1.0"/>
+</session>

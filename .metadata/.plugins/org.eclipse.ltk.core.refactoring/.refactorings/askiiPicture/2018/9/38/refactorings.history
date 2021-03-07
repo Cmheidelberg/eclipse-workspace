@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;askiiPicture.loadImage.java&apos; to &apos;LoadImage.java&apos;&#x0D;&#x0A;- Original project: &apos;askiiPicture&apos;&#x0D;&#x0A;- Original element: &apos;askiiPicture.loadImage.java&apos;&#x0D;&#x0A;- Renamed element: &apos;askiiPicture.LoadImage.java&apos;" description="Rename compilation unit &apos;loadImage.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;askiiPicture{loadImage.java" name="LoadImage.java" references="false" stamp="1537368537672" version="1.0"/>
+</session>

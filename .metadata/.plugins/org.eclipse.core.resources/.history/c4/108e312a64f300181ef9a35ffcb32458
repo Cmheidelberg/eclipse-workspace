@@ -1,0 +1,250 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+
+public class TickTackToe{
+
+	JFrame frame;
+	JPanel gameBoxes;
+	JPanel infoBox;
+	JPanel mainPanel;
+	
+	JLabel[] info = new JLabel[4];
+	
+	JButton[] button = new JButton[9];
+	
+	Random rand = new Random();
+	
+	ImageIcon x = new ImageIcon("C:\\Users\\Admin\\Pictures\\X.png");
+	ImageIcon o = new ImageIcon("C:\\Users\\Admin\\Pictures\\O.png");
+	
+	int[] game = new int[9];
+	int winner = 0;
+	
+	private int width = 800;
+	private int height = 850;
+	private String bufferStr = "                                       ";
+	private boolean ended = false; //Used so that the game doesnt keep saying "Game Over" see ButtonListener class
+	
+	public TickTackToe()
+	{
+		
+		frame = new JFrame("TickTackToe");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		mainPanel = new JPanel();
+		mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
+		
+		gameBoxes = new JPanel();
+		gameBoxes.setLayout(new GridLayout(3,1));
+		gameBoxes.setMaximumSize(new Dimension(800,800));
+			
+		for(int i = 0; i < button.length; i++)
+		{
+			button[i] = new JButton("b" + i);
+			button[i].setPreferredSize(new Dimension(50,200));
+			button[i].addActionListener(new ButtonListener());
+			gameBoxes.add(button[i]);
+		}
+		
+		infoBox = new JPanel();
+		infoBox.setLayout(new GridLayout(info.length,1));
+		
+		//Sets up the text boxes under the game board
+		System.out.println("before loop");
+		for(int i = 0; i < info.length; i++)
+		{
+			System.out.println(i);
+			info[i] = new JLabel("");
+			info[i].setFont(new Font("Calbri",Font.PLAIN,30));
+			infoBox.add(info[i]);
+		}
+		
+		
+		mainPanel.add(gameBoxes);
+		mainPanel.add(infoBox);
+		frame.setSize(width,height);
+		frame.setResizable(false);
+		
+		frame.setContentPane(mainPanel);
+		frame.setMinimumSize(new Dimension(850,850));
+		
+		frame.setVisible(true);
+	}
+	
+	private void shiftText()
+	{
+		for(int i = info.length-2; i >= 0; i--)
+		{
+			info[i+1].setText(info[i].getText());
+			info[i+1].setForeground(info[i].getForeground());
+			info[i].setForeground(Color.BLACK);
+		}
+	}
+	private void updateInfo(String str)
+	{
+		shiftText();
+		str = bufferStr + str;
+		info[0].setText(str);
+	}
+	
+	private void updateInfo(String str, int color)
+	{
+		shiftText();
+		str = bufferStr + str;
+		info[0].setText(str);
+		
+		if(color == 1)
+		{
+			info[0].setForeground(Color.RED);
+		}
+		else if(color == 2)
+		{
+			info[0].setForeground(Color.ORANGE);
+		}
+	}
+	
+	private boolean checkClick(String box)
+	{
+		int index = Integer.parseInt(box.charAt(box.length()-1)+ "");
+		
+		if(gameOver())
+		{
+			updateInfo("The game has ended!",2);
+			return false;
+		}
+		
+		if(game[index] != 0)
+		{
+			updateInfo("That box is already marked!",2);
+			return false;
+		}
+		game[index] = 1;
+		updateGame();
+		
+		return true;
+	}
+	
+	public void updateGame()
+	{
+		for(int i = 0; i < game.length; i++)
+		{
+			
+				if(game[i] == 1 && button[i].getIcon() == null)
+				{
+					button[i].setIcon(x);
+					updateInfo("X added in b" + i);
+				}
+				else if(game[i] == 2 && button[i].getIcon() == null)
+				{
+					button[i].setIcon(o);
+					updateInfo("O added in b" + i);
+				}
+						
+		}
+		
+	}
+	private void compTurn()
+	{
+		boolean placed = false;
+		int num = 0;
+		if(!gameOver())
+		{
+			while(!placed)
+			{
+				num = rand.nextInt(9);
+				if(game[num] == 0)
+				{
+					game[num] = 2;
+					placed = true;
+					updateGame();
+				}
+			}
+		}
+	}
+	
+	private boolean gameOver()
+	{
+		boolean over = true;
+		
+		for(int i = 0; i < game.length; i++)
+		{
+			if(game[i] == 0)
+			{
+				over = false;
+			}
+		}
+		
+		//Checks horizontally to see if the game is over
+		for(int i = 0; i <= 6; i+=3)
+		{
+			if(game[i] == game[i+1] && game[i] == game[i+2] && game[i] != 0)
+			{
+				winner = game[i];
+				over = true;
+				break;
+			}
+		}
+		
+		//Checks vertically to see if the game is over
+		for(int i = 0; i < 3; i++)
+		{
+			if(game[i] == game[i+3] && game[i] == game[i+6] && game[i] != 0)
+			{
+				winner = game[i];
+				over = true;
+				break;
+				
+			}
+		}
+		
+		//Next two check the verticalls
+		if(game[0] == game[4] && game[0] == game[8] && game[0] != 0)
+		{
+			over = true;
+			winner = game[0];
+		}
+		
+		if(game[2] == game[4] && game[2] == game[6] && game[2] != 0)
+		{
+			over = true;
+			winner = game[2];
+		}
+		
+		return over;
+	}
+	
+	private class ButtonListener implements ActionListener
+	{
+		
+		
+		public void actionPerformed(ActionEvent e)
+		{
+			//Refers to action command method from buttons
+			String com = e.getActionCommand();
+			
+			checkClick(com);
+			compTurn();
+			
+			if(gameOver() && !ended)
+			{
+				updateInfo("Game Over!",1);
+				if(winner == 1)
+				{
+					updateInfo("Plater Wins!");
+				}
+				else if(winner == 2)
+				{
+					updateInfo("Computer Wins!");
+				}
+				ended = true;
+			}
+								
+		}
+	}
+	
+	
+	
+	
+}

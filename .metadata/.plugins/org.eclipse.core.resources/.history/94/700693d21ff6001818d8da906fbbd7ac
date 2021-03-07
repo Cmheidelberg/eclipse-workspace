@@ -1,0 +1,69 @@
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Multiply window = new Multiply(350,350);
+		//window.makeWindow();
+		// new ColorGUI();
+		//new TickTackToe();
+		
+		TackMove tm = new TackMove();
+		
+		
+		
+		
+		
+		pa(tm.getWeights(),"Origional");
+		for(int j = 0; j < 100; j++)
+		{
+			ArrayList<int[]> mutants = new ArrayList<int[]>();
+			for(int i = 0; i < 10; i++)
+			{
+				mutants.add(tm.getMutant(5));
+			}
+			
+			for(int w = 0; w < mutants.size(); w++)
+			{
+				pa(mutants.get(w),"      Mutant[" + w + "]");
+			}
+			
+			tm.setWeights(mutants.get(getMaxMutant(mutants)));
+			System.out.println(getMaxMutant(mutants));
+		}
+		pa(tm.getWeights(),"final");
+	}
+
+	public static void pa(int[] arr, String str)
+	{
+		System.out.print(str + ": ");
+		for(int i = 0; i < arr.length; i++)
+		{
+			System.out.print(arr[i] + ",");
+		}
+		System.out.print("\n");
+	}
+	
+	public static int getMaxMutant(ArrayList<int[]> list)
+	{
+		int maxIndex = 0;
+		int maxVal = 0;
+		int currVal = 0;
+		
+		for(int i = 0; i < list.size(); i++)
+		{
+			currVal = list.get(i)[0];
+			//System.out.println("currVal[" + i + "] = " + currVal);
+			if(currVal > maxVal)
+			{
+				maxIndex = i;
+				maxVal = currVal;
+			}
+			//System.out.println("maxVal[" + i + "] = " + maxVal);
+			//System.out.println("maxIndex[" + i + "] = " + maxIndex);
+		}
+		
+		return maxIndex;
+	}
+}

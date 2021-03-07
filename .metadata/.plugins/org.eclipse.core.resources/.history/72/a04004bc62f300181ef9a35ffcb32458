@@ -1,0 +1,13 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Multiply window = new Multiply(350,350);
+		new ColorGUI();
+		new TickTackToe();
+		
+
+	}
+
+}

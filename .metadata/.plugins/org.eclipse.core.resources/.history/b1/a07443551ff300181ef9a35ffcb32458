@@ -1,0 +1,61 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class TickTackToe{
+
+	JFrame frame;
+	JPanel gameBoxes;
+	JPanel infoBox;
+	JPanel mainPanel;
+	
+	JLabel[] info = new JLabel[15];
+	
+	JButton[] button = new JButton[9];
+	
+	
+	private int width = 1000;
+	private int height = 1500;
+	
+	public TickTackToe()
+	{
+		frame = new JFrame("TickTackToe");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		mainPanel = new JPanel();
+		mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
+		
+		gameBoxes = new JPanel();
+		gameBoxes.setLayout(new GridLayout(3,3));
+		gameBoxes.setMaximumSize(new Dimension(400,400));
+			
+		for(int i = 0; i < button.length; i++)
+		{
+			button[i] = new JButton("   b" + i);
+			button[i].setPreferredSize(new Dimension(100,100));
+			gameBoxes.add(button[i]);
+		}
+		
+		infoBox = new JPanel();
+		infoBox.setLayout(new GridLayout(15,1));
+		System.out.println("before loop");
+		for(int i = 0; i < info.length; i++)
+		{
+			System.out.println(i);
+			info[i] = new JLabel("Example text: " + i);
+			infoBox.add(info[i], BorderLayout.CENTER);
+		}
+		
+		
+		mainPanel.add(gameBoxes);
+		mainPanel.add(infoBox);
+		frame.setSize(850,850);
+		
+		frame.setContentPane(mainPanel);
+		frame.setMinimumSize(new Dimension(850,850));
+		
+		frame.setVisible(true);
+	}
+	
+	
+}
